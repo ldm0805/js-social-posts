@@ -1,4 +1,4 @@
-
+//Milestone 1
 const posts = [
     {
         id: 1,
@@ -58,17 +58,37 @@ const posts = [
 ];
 
 let itemsContent = '';
-
+let profile_pic
+//Milestone2 
 posts.forEach((element) => {
+    //Bonus 1 
+    const date = element.created;
+    const [year, month, day] = date.split('-');
+    const result = [month, day, year].join('/');
+    //Bonus 2
+    if(element.author.image == null){
+        let text = element.author.name;
+        const arrayNome = text.split(" ");
+        let nome = arrayNome[0];
+        let cognome = arrayNome[1];
+        let letteraNome = nome.charAt(0);
+        let letteraCognome = cognome.charAt(0);
+        profile_pic = `<h2 class ="profile-pic">${letteraNome}${letteraCognome}</h2>`
+    }
+    else{
+        profile_pic = `<img class="profile-pic" src="${element.author.image}" alt= "Phil Mangione">`
+    }
+
     itemsContent += `<div class="post">
     <div class="post__header">
         <div class="post-meta">                    
             <div class="post-meta__icon">
-                <img class="profile-pic" src=${element.author.image} alt="Phil Mangione">                    
+            ${profile_pic}
             </div>
             <div class="post-meta__data">
+                       
                 <div class="post-meta__author">${element.author.name}</div>
-                <div class="post-meta__time">${element.created}</div>
+                <div class="post-meta__time">${result}</div>
             </div>                    
         </div>
     </div>
@@ -90,29 +110,37 @@ posts.forEach((element) => {
         </div> 
     </div>            
 </div>`
-let numeroMiPiace = element.likes
-console.log(numeroMiPiace)
-return numeroMiPiace
+let numeroLikes = element.likes
+console.log(numeroLikes)
+return numeroLikes
 });
+
 
 const cardPreview = document.getElementById('container')
 cardPreview.innerHTML += itemsContent;
 
-
-
-const miPiace = document.getElementsByClassName('js-like-button')
-
-
-for (let i = 0; i < miPiace.length; i++){
-
-    miPiace[i].addEventListener('click',function(){
-
+const iLikes = document.getElementsByClassName('js-like-button')
+//Milestone 3 Bonus 3 Tasto like
+const arrayLike=[];
+for (let i = 0; i < iLikes.length; i++){
+    iLikes[i].addEventListener('click',function(){
+        iLikes[i].classList.add("like-button--liked")
         const postId = this.dataset.postid
         const likes = document.getElementById(`like-counter-${postId}`)
         const likesNumber = parseInt(likes.innerText)
-        
 
-        likes.innerText = likesNumber+1
-            console.log(likesNumber)
-    })
+        if(arrayLike.includes(postId)){
+
+            likes.innerText = likesNumber-1;
+            const index = arrayLike.indexOf(postId);
+            arrayLike.splice(index,1);
+            iLikes[i].classList.remove("like-button--liked");}
+
+            else{
+                likes.innerText = likesNumber+1;
+                arrayLike.push(postId);
+                iLikes[i].classList.add("like-button--liked");
+            }
+        })
+
 }
