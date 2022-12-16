@@ -126,7 +126,9 @@ const iLikes = document.getElementsByClassName('js-like-button')
 //Array dei like
 const arrayLike=[];
 for (let i = 0; i < iLikes.length; i++){
-    iLikes[i].addEventListener('click',function(){
+    iLikes[i].addEventListener('click',function(e){
+        //funzione per non far tornare su la pagina al click del like
+        e.preventDefault();
         iLikes[i].classList.add("like-button--liked")
         const postId = this.dataset.postid
         const likes = document.getElementById(`like-counter-${postId}`)
