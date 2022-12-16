@@ -73,7 +73,7 @@ posts.forEach((element) => {
         let surname_contr = arrayName_contr[1];
         let letterNameContr = name_contr.charAt(0);
         let letterSurnameCheck = surname_contr.charAt(0);
-        profile_pic = `<h2 class ="profile-pic">${letterNameContr}${letterSurnameCheck}</h2>`
+        profile_pic = `<h2 class ="profile-pic-default">${letterNameContr}${letterSurnameCheck}</h2>`
     }
     else{
         profile_pic = `<img class="profile-pic" src="${element.author.image}" alt= "Phil Mangione">`
