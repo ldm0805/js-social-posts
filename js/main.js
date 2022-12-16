@@ -59,26 +59,26 @@ const posts = [
 
 let itemsContent = '';
 let profile_pic
-//Milestone2 
+//Milestone 2 
 posts.forEach((element) => {
-    //Bonus 1 
+    //Bonus 1 : Data 
     const date = element.created;
     const [year, month, day] = date.split('-');
     const result = [month, day, year].join('/');
-    //Bonus 2
+    //Bonus 2 : Lettere nell'immagine di profilo
     if(element.author.image == null){
         let text = element.author.name;
-        const arrayNome = text.split(" ");
-        let nome = arrayNome[0];
-        let cognome = arrayNome[1];
-        let letteraNome = nome.charAt(0);
-        let letteraCognome = cognome.charAt(0);
-        profile_pic = `<h2 class ="profile-pic">${letteraNome}${letteraCognome}</h2>`
+        const arrayName_contr = text.split(" ");
+        let name_contr = arrayName_contr[0];
+        let surname_contr = arrayName_contr[1];
+        let letterNameContr = name_contr.charAt(0);
+        let letterSurnameCheck = surname_contr.charAt(0);
+        profile_pic = `<h2 class ="profile-pic">${letterNameContr}${letterSurnameCheck}</h2>`
     }
     else{
         profile_pic = `<img class="profile-pic" src="${element.author.image}" alt= "Phil Mangione">`
     }
-
+    
     itemsContent += `<div class="post">
     <div class="post__header">
         <div class="post-meta">                    
@@ -120,7 +120,10 @@ const cardPreview = document.getElementById('container')
 cardPreview.innerHTML += itemsContent;
 
 const iLikes = document.getElementsByClassName('js-like-button')
+
 //Milestone 3 Bonus 3 Tasto like
+
+//Array dei like
 const arrayLike=[];
 for (let i = 0; i < iLikes.length; i++){
     iLikes[i].addEventListener('click',function(){
@@ -128,7 +131,7 @@ for (let i = 0; i < iLikes.length; i++){
         const postId = this.dataset.postid
         const likes = document.getElementById(`like-counter-${postId}`)
         const likesNumber = parseInt(likes.innerText)
-
+        //Controllo dei like inseriti 
         if(arrayLike.includes(postId)){
 
             likes.innerText = likesNumber-1;
